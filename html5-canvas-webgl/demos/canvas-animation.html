@@ -1,20 +1,76 @@
 <!doctype html>
 <html>
-    <head></head>
+    <head>
+        <title>Canvas Animation Demo</title>
+        <meta charset="UTF-8" />
+        <meta name="author" content="Andrzej Pragacz" />
+    </head>
     <body>
         <canvas id="canvas" width="800" height="600"></canvas>
-        <script type="text/javascirpt" src="js/base.js"></script>
-        <script type="text/javascirpt" src="js/canvas/sprites.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="js/base.js"></script>
+        <script type="text/javascript" src="js/canvas/sprites.js"></script>
+        <script type="text/javascript" src="js/canvas/engine.js"></script>
         <script type="text/javascript">
+            $(function () {
+                var canvas = document.getElementById("canvas");
 
-            var canvas = document.getElementById("canvas");
+                var image = new Image();
+                image.onload = function () {
+                    var sprite1 = new ImageMovableSprite({
+                        x: 200,
+                        y: 100,
+                        xUpdate: 1,
+                        yUpdate: 2,
+                        scale: 0.2,
+                        rotUpdate: 0.01,
+                        //width: 290,
+                        //height: 300,
+                        image: image
+                    });
+                    var sprite2 = new NGonMovableSprite({
+                        x: 500,
+                        y: 400,
+                        xUpdate: 1,
+                        yUpdate: 3,
+                        fillColor: 'rgba(255,0,0, 127)',
+                        rotUpdate: 0.01,
+                        sides: 8
+                    });
+                    var sprite3 = new NGonMovableSprite({
+                        x: 500,
+                        y: 500,
+                        xUpdate: 2,
+                        yUpdate: 1,
+                        fillColor: 'rgba(0,0,255, 127)',
+                        rotUpdate: 0.01,
+                        sides: 5
+                    });
 
-            //var sprite = new ImageMovableSprite();
+                    var sprite4 = new NGonMovableSprite({
+                        x: 500,
+                        y: 500,
+                        xUpdate: -1,
+                        yUpdate: 1,
+                        rotUpdate: 0.001,
+                        fillColor: 'rgba(0,255,0, 127)',
+                        sides: 3
+                    });
 
-            //var canvasEngine = new CanvasEngine({
-            //    canvas: canvas
-            //});
-            //canvasEngine.start();
+                    var canvasEngine = new CanvasEngine({
+                        canvas: canvas
+                    });
+                    canvasEngine.addSprite(sprite1);
+                    canvasEngine.addSprite(sprite2);
+                    canvasEngine.addSprite(sprite3);
+                    canvasEngine.addSprite(sprite4);
+
+                    console.log('start');
+                    canvasEngine.start();
+                };
+                image.src = 'img/megusta.png';
+            });
+
 
         </script>
 

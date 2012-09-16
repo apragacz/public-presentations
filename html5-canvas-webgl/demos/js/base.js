@@ -1,4 +1,4 @@
-function () {
+(function () {
 
     var addToPrototype = function (objPrototype, superPrototype, name, replacementFunction, addSuperFunProp) {
         var superFunction = superPrototype[name];
@@ -6,17 +6,14 @@ function () {
         var newFunction = replacementFunction;
         if (superFunction && addSuperFunProp) {
             newFunction = function () {
-                var tmpSuperFunction = this.__superfunction__;
                 var tmpSuper = this.__super__;
-                this.__superfunction__ = superFunction;
                 this.__super__ = superPrototype;
                 var returnValue = newCoreFunction.apply(this, arguments);
-                this.__superfunction__ = tmpSuperFunction;
                 this.__super__ = tmpSuper;
                 return returnValue;
             };
         }
-        objPrototype[name] = newMethod;
+        objPrototype[name] = newFunction;
     };
 
     var arrayContains = function (arr, elem) {
@@ -37,7 +34,8 @@ function () {
             newPrototype[name] = superPrototype[name];
         }
 
-        for (name in prototypeExtension) {
+        //copy extension
+        for (name in prototypeExt) {
             var addSuperFunProp = false;
             if (typeof (superFunPropertyFuns) === 'undefined') {
                 addSuperFunProp = true;
@@ -50,8 +48,8 @@ function () {
             }
             addToPrototype(newPrototype, superPrototype, name, prototypeExt[name], addSuperFunProp);
 
-            objConstructor.prototype = newPrototype;
         }
+        objConstructor.prototype = newPrototype;
     };
 
     window.createObjectConstructor = function () {
@@ -62,4 +60,4 @@ function () {
         return constructor;
     };
 
-}();
+}).call(this);
