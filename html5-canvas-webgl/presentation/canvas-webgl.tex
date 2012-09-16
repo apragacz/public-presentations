@@ -1,0 +1,64 @@
+\documentclass{beamer}
+\usetheme{default}
+\begin{document}
+
+
+
+\section{Canvas}
+
+\begin{frame}{Brief history of canvas element}
+\end{frame}
+
+\begin{frame}{What can you do with canvas?}
+\begin{itemize}
+    \item draw straight lines, curves, circles, rects
+    \item draw objects using paths
+    \item draw images
+    \item fill objects with gradients
+    \item draw DOM objects
+    \item transform objects
+    \item save/restore canvas state
+    \item compose (blend) objects in various ways
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tips}
+\begin{itemize}
+    \item Pre-render similar primitives or repeating objects on an off-screen canvas.
+    \item Batch canvas calls together (for example, draw a poly-line instead of multiple separate lines).
+    \item Avoid floating point coordinates and use integers instead.
+    \item Avoid unnecessary canvas state changes.
+    \item Render screen differences only, not the whole new state.
+    \item Use multiple layered canvases for complex scenes.
+    \item Avoid shadowBlur.
+    \item With animations, use requestAnimationFrame.
+    \item Test performance with JSPerf.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Libraries}
+
+libCanvas is powerful and lightweight canvas framework
+
+Processing.js is a port of the Processing visualization language
+
+EaselJS is a library with a Flash-like API
+
+PlotKit is a charting and graphing library
+
+Rekapi is an animation keyframing API for Canvas
+
+PhiloGL is a WebGL framework for data visualization, creative coding and game development.
+
+JavaScript InfoVis Toolkit creates interactive 2D Canvas data visualizations for the Web.
+
+
+\end{frame}
+
+
+
+\section{WebGL}
+
+\end{document}
