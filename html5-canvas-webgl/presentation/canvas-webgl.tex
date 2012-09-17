@@ -1,8 +1,19 @@
 \documentclass{beamer}
 \usetheme{default}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\title{Canvas and WebGL}
+\author{Andrzej Pragacz}
+
 \begin{document}
 
 
+\titlepage
 
 \section{Canvas}
 
@@ -22,6 +33,93 @@
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Getting context}
+
+assuming we have somewhere defined in the HTML code:
+
+\lstset{ language=HTML, basicstyle=\scriptsize,frame=single}
+\lstinputlisting{canvas/tag.html}
+
+we get the context:
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/getcontext.js}
+
+And we're ready!
+
+\end{frame}
+
+
+\begin{frame}{Drawing background rectangle}
+
+black:
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/draw_rect.js}
+
+with gradient:
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/draw_gradient.js}
+
+also, radial gradient can be used
+
+\end{frame}
+
+
+\begin{frame}{Drawing pentagon filled with semi-transparent color and shadow}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/draw_ngon.js}
+
+\end{frame}
+
+
+\begin{frame}{Drawing pentagon boundary}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/draw_ngon_stroked.js}
+
+\end{frame}
+
+
+\begin{frame}{Transformations}
+
+the state of context can be saved (with all properties, like fillColor, globalAlpha etc.)
+this is useful when we change the coordinates system
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/transform.js}
+
+and then restored back:
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/restore.js}
+
+
+\end{frame}
+
+
+\begin{frame}{Drawing images}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{canvas/draw_image.js}
+
+canvas objects can also be drawn!
+
+\end{frame}
+
+
+
 \begin{frame}{Tips}
 \begin{itemize}
     \item Pre-render similar primitives or repeating objects on an off-screen canvas.
@@ -35,6 +133,123 @@
     \item Test performance with JSPerf.
 
 \end{itemize}
+\end{frame}
+
+
+\section{WebGL}
+
+\begin{frame}{WebGL}
+
+\begin{itemize}
+\item is based on OpenGL ES 2.0, which is based on OpenGL 2.0
+\item provides an API for 3D graphics
+\item uses the HTML5 canvas element
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Compatibility}
+
+\begin{itemize}
+\item Availability depends on graphics card driver (with opengl 2.0 support) and
+support from the browser (google chrome, firefox)
+\item Security issues - Cross-Origin Resource Sharing
+\item Mozilla Firefox - 4.0+ (CORS - 8.0+)
+\item Google Chrome - 9+ (CORS - 13.0+)
+\item Safari 5.1+ (disabled by default)
+\item Opera - 11+ (disabled by default)
+\item Internet Explorer - nope (but there are plugins, like The Chrome Frame and IEWebGL)
+
+\item Sometimes the support from graphics driver (if any) is not enough - on
+linux software emulation like Mesa library can be helpful
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{WebGL philosophy}
+
+\begin{itemize}
+\item instead of glFunctionDoingSomething() we have gl.functionDoingSomething()
+\item instead of glBegin(), glVertex*() calls we rather use vertex buffers and
+let the shaders do all the work
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Initializing}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/init.js}
+
+... but that's not all!
+
+\end{frame}
+
+
+\begin{frame}{Initializing cont.}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/init_ext.js}
+
+\end{frame}
+
+
+\begin{frame}{Shaders}
+
+vertex shader
+\lstset{ language=C, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/vertex_shader.txt}
+
+fragment shader
+\lstset{ language=C, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/fragment_shader.txt}
+
+\end{frame}
+
+
+\begin{frame}{Loading shaders}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/load_vertex_shader.js}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/load_fragment_shader.js}
+
+\end{frame}
+
+
+\begin{frame}{Shader program}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/shader_prog.js}
+
+\end{frame}
+
+
+\begin{frame}{Creating vertex buffer}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/buffer.js}
+
+\end{frame}
+
+
+\begin{frame}{Finally, drawing the scene}
+
+\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/draw.js}
+
 \end{frame}
 
 
@@ -57,8 +272,5 @@ JavaScript InfoVis Toolkit creates interactive 2D Canvas data visualizations for
 
 \end{frame}
 
-
-
-\section{WebGL}
 
 \end{document}
