@@ -14,61 +14,110 @@
         <script type="text/javascript">
             $(function () {
                 var canvas = document.getElementById("canvas");
+                var image1 = new Image();
+                var image2 = new Image();
+                var imagesToLoad = 2;
 
-                var image = new Image();
-                image.onload = function () {
-                    var sprite1 = new ImageMovableSprite({
-                        x: 200,
-                        y: 100,
-                        xUpdate: 1,
-                        yUpdate: 2,
-                        scale: 0.2,
-                        rotUpdate: 0.01,
-                        //width: 290,
-                        //height: 300,
-                        image: image
-                    });
-                    var sprite2 = new NGonMovableSprite({
-                        x: 500,
-                        y: 400,
-                        xUpdate: 1,
-                        yUpdate: 3,
-                        fillColor: 'rgba(255,0,0, 127)',
-                        rotUpdate: 0.01,
-                        sides: 8
-                    });
-                    var sprite3 = new NGonMovableSprite({
-                        x: 500,
-                        y: 500,
-                        xUpdate: 2,
-                        yUpdate: 1,
-                        fillColor: 'rgba(0,0,255, 127)',
-                        rotUpdate: 0.01,
-                        sides: 5
-                    });
+                var getRandomX = function () {
+                    return Math.round(50 + Math.random() * (canvas.width - 100));
+                };
 
-                    var sprite4 = new NGonMovableSprite({
-                        x: 500,
-                        y: 500,
-                        xUpdate: -1,
-                        yUpdate: 1,
-                        rotUpdate: 0.001,
-                        fillColor: 'rgba(0,255,0, 127)',
-                        sides: 3
-                    });
+                var getRandomY = function () {
+                    return Math.round(50 + Math.random() * (canvas.height - 100));
+                };
 
+                var fireUpEngine = function () {
                     var canvasEngine = new CanvasEngine({
                         canvas: canvas
                     });
-                    canvasEngine.addSprite(sprite1);
-                    canvasEngine.addSprite(sprite2);
-                    canvasEngine.addSprite(sprite3);
-                    canvasEngine.addSprite(sprite4);
 
-                    console.log('start');
+                    for (var i = 0; i < 2; i++) {
+                        var x = getRandomX();
+                        var y = getRandomY();
+                        var sprite = new ImageMovableSprite({
+                            x: x,
+                            y: y,
+                            xUpdate: 1,
+                            yUpdate: 2,
+                            scale: 0.2,
+                            rotUpdate: 0.01,
+                            image: image1
+                        });
+                        canvasEngine.addSprite(sprite);
+                    }
+                    for (var i = 0; i < 2; i++) {
+                        var x = getRandomX();
+                        var y = getRandomY();
+                        var sprite = new ImageMovableSprite({
+                            x: x,
+                            y: y,
+                            xUpdate: 1,
+                            yUpdate: 2,
+                            rotUpdate: 0.03,
+                            image: image2
+                        });
+                        canvasEngine.addSprite(sprite);
+                    }
+                    for (var i = 0; i < 5; i++) {
+                        var x = getRandomX();
+                        var y = getRandomY();
+                        var sprite = new NGonMovableSprite({
+                            x: x,
+                            y: y,
+                            xUpdate: 1,
+                            yUpdate: 3,
+                            fillColor: 'rgba(255,0,0, 0.8)',
+                            rotUpdate: 0.01,
+                            size: 40,
+                            sides: 8
+                        });
+                        canvasEngine.addSprite(sprite);
+                    }
+                    for (var i = 0; i < 5; i++) {
+                        var x = getRandomX();
+                        var y = getRandomY();
+                        var sprite = new NGonMovableSprite({
+                            x: x,
+                            y: y,
+                            xUpdate: 2,
+                            yUpdate: 1,
+                            fillColor: 'rgba(0,0,255, 0.8)',
+                            rotUpdate: 0.01,
+                            size: 40,
+                            sides: 5
+                        });
+                        canvasEngine.addSprite(sprite);
+                    }
+
+                    for (var i = 0; i < 2; i++) {
+                        var x = getRandomX();
+                        var y = getRandomY();
+                        var sprite = new NGonMovableSprite({
+                            x: x,
+                            y: y,
+                            xUpdate: -4,
+                            yUpdate: 2,
+                            rotUpdate: 0.001,
+                            fillColor: 'rgba(0,255,0, 0.8)',
+                            size: 40,
+                            sides: 3
+                        });
+                        canvasEngine.addSprite(sprite);
+                    }
+
                     canvasEngine.start();
                 };
-                image.src = 'img/megusta.png';
+
+                var onLoadImage = function () {
+                    imagesToLoad--;
+                    if (imagesToLoad <= 0) {
+                        fireUpEngine();
+                    }
+                };
+                image1.onload = onLoadImage;
+                image2.onload = onLoadImage;
+                image1.src = 'img/megusta.png';
+                image2.src = 'img/megusta-small.png';
             });
 
 

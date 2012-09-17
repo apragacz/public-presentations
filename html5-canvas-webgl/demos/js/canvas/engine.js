@@ -30,6 +30,9 @@
                     return false;
                 }
             };
+            this.ctxExt = {
+
+            };
         },
 
         getContext: function (canvas) {
@@ -39,7 +42,7 @@
         defaultDraw: function () {
             this.drawBackground();
             for (var i = this.sprites.length - 1; i >= 0; i--) {
-                this.sprites[i].draw(this.ctx);
+                this.sprites[i].draw(this.ctx, this.ctxExt);
             }
         },
 

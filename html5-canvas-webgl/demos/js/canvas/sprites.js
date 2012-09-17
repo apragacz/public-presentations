@@ -17,7 +17,7 @@
             this.action = this.defaultAction;
         },
 
-        startDraw: function (ctx) {
+        startDraw: function (ctx, ctxExt) {
             //EXAMPLE: transformations
             //EXAMPLE: save
             ctx.save()
@@ -26,39 +26,55 @@
             ctx.scale(this.scaleFactor,this.scaleFactor);
         },
 
-        drawCore: function (ctx) {
+        drawCore: function (ctx, ctxExt) {
             //does nothing by default
         },
 
-        endDraw: function (ctx) {
+        endDraw: function (ctx, ctxExt) {
             //EXAMPLE: restore
             ctx.restore();
         },
 
-        defaultDraw: function (ctx) {
-            this.startDraw(ctx);
-            this.drawCore(ctx);
-            this.endDraw(ctx);
+        defaultDraw: function (ctx, ctxExt) {
+            this.startDraw(ctx, ctxExt);
+            this.drawCore(ctx, ctxExt);
+            this.endDraw(ctx, ctxExt);
         },
 
         defaultAction: function (env) {
             //does nothing by default
         },
 
-        getWidth: function () {
+        getNaturalWidth: function () {
             return 0;
+        },
+
+        getNaturalHeight: function () {
+            return 0;
+        },
+
+        getWidth: function () {
+            return this.scaleFactor * this.getNaturalWidth();
         },
 
         getHeight: function () {
-            return 0;
+            return this.scaleFactor * this.getNaturalHeight();
+        },
+
+        getNaturalXDev: function () {
+            return this.getNaturalWidth() / 2;
+        },
+
+        getNaturalYDev: function () {
+            return this.getNaturalHeight() / 2;
         },
 
         getXDev: function () {
-            return this.scaleFactor * this.getWidth() / 2;
+            return this.getWidth() / 2;
         },
 
         getYDev: function () {
-            return this.scaleFactor * this.getHeight() / 2;
+            return this.getWidth() / 2;
         }
     };
 
@@ -96,18 +112,18 @@
             console.log(this.height);
         },
 
-        drawCore: function (ctx) {
+        drawCore: function (ctx, ctxExt) {
             //EXAMPLE: draw image
             //console.log('draw image')
-            ctx.drawImage(this.image, this.x, this.y)
+            ctx.drawImage(this.image, -this.getNaturalXDev(), -this.getNaturalYDev());
         },
 
-        getWidth: function () {
-            return this.image.width;
+        getNaturalWidth: function () {
+            return this.width;
         },
 
-        getHeight: function () {
-            return this.image.height;
+        getNaturalHeight: function () {
+            return this.height;
         }
 
     };
@@ -121,7 +137,7 @@
             this.fillColor = params.fillColor || "rgb(255,0,0)"
         },
 
-        drawCore: function (ctx) {
+        drawCore: function (ctx, ctxExt) {
             //EXAMPLE: draw path
             ctx.fillStyle = this.fillColor;
             ctx.beginPath();
@@ -138,11 +154,11 @@
             //ctx.stroke();
         },
 
-        getWidth: function () {
+        getNaturalWidth: function () {
             return this.size * 2;
         },
 
-        getHeight: function () {
+        getNaturalHeight: function () {
             return this.size * 2;
         }
     };
