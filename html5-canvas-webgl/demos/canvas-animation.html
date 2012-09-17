@@ -54,6 +54,7 @@
                             xUpdate: 1,
                             yUpdate: 2,
                             rotUpdate: 0.03,
+                            alpha: 0.5,
                             image: image2
                         });
                         canvasEngine.addSprite(sprite);
@@ -88,6 +89,22 @@
                         });
                         canvasEngine.addSprite(sprite);
                     }
+                    for (var i = 0; i < 2; i++) {
+                        var x = getRandomX();
+                        var y = getRandomY();
+                        var sprite = new NGonMovableSprite({
+                            x: x,
+                            y: y,
+                            xUpdate: -5,
+                            yUpdate: 1,
+                            stroke: true,
+                            fillColor: 'rgba(0,0,255, 0.8)',
+                            rotUpdate: 0.01,
+                            size: 40,
+                            sides: 5
+                        });
+                        canvasEngine.addSprite(sprite);
+                    }
 
                     for (var i = 0; i < 2; i++) {
                         var x = getRandomX();
@@ -99,6 +116,7 @@
                             yUpdate: 2,
                             rotUpdate: 0.001,
                             fillColor: 'rgba(0,255,0, 0.8)',
+                            shadow: true,
                             size: 40,
                             sides: 3
                         });

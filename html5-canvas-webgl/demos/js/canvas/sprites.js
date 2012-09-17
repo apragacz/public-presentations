@@ -105,6 +105,7 @@
         init: function (params) {
             this.__super__.init.call(this, params);
             this.image = params.image;
+            this.alpha = params.alpha || 1.0
             this.width = params.width || this.image.width || this.image.naturalWidth;
             this.height = params.height || this.image.height || this.image.naturalHeight;
             console.log(this.image);
@@ -115,6 +116,7 @@
         drawCore: function (ctx, ctxExt) {
             //EXAMPLE: draw image
             //console.log('draw image')
+            ctx.globalAlpha = this.alpha;
             ctx.drawImage(this.image, -this.getNaturalXDev(), -this.getNaturalYDev());
         },
 
@@ -134,24 +136,42 @@
             this.__super__.init.call(this, params);
             this.sides = params.sides || 3;
             this.size = params.size || 20;
-            this.fillColor = params.fillColor || "rgb(255,0,0)"
+            this.fillColor = params.fillColor || "rgb(255,0,0)";
+            this.strokeColor = params.strokeColor || "rgb(255,255,0)";
+            this.stroke = params.stroke || false;
+            this.shadow = params.shadow || false;
         },
 
         drawCore: function (ctx, ctxExt) {
             //EXAMPLE: draw path
             ctx.fillStyle = this.fillColor;
+            ctx.strokeStyle = this.strokeColor;
+            ctx.lineWidth = 6;
+            ctx.lineJoin = "bevel";
             ctx.beginPath();
-            ctx.moveTo(0, this.size);
+            var angle = 0;
+            var x = Math.cos(angle);
+            var y = Math.sin(angle);
+            ctx.moveTo(this.size * x, this.size * y);
             //console.log('draw ngon');
-            for (var i = 0; i <= this.sides; i++) {
-                var angle = 2 * i * Math.PI / this.sides;
-                var x = Math.cos(angle);
-                var y = Math.sin(angle);
+            for (var i = 1; i <= this.sides; i++) {
+                angle = 2 * i * Math.PI / this.sides;
+                x = Math.cos(angle);
+                y = Math.sin(angle);
                 ctx.lineTo(this.size * x, this.size * y);
             }
-            ctx.closePath();
-            ctx.fill();
-            //ctx.stroke();
+            if (this.stroke) {
+                ctx.closePath();
+                ctx.stroke();
+            } else {
+                if (this.shadow) {
+                    ctx.shadowOffsetX = 4;
+                    ctx.shadowOffsetY = 4;
+                    ctx.shadowBlur = 4;
+                    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+                }
+                ctx.fill();
+            }
         },
 
         getNaturalWidth: function () {

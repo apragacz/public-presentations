@@ -14,14 +14,18 @@
             this.drawPeriod = 50;
             this.drawTimeout = null;
             this.draw = this.defaultDraw;
-            this.drawBackground = this.drawBlackBackground;
+            this.drawBackground = this.drawGradientBackground;
 
             this.sprites = [];
             var self = this;
             this.env = {
                 isXCollision: function (sprite) {
-                    if (self.canvas.width < sprite.x + sprite.getXDev() ) return true;
-                    if (sprite.x - sprite.getXDev() < 0 ) return true;
+                    if (self.canvas.width < sprite.x + sprite.getXDev() ) {
+                        return true;
+                    }
+                    if (sprite.x - sprite.getXDev() < 0 ) {
+                        return true;
+                    }
                     return false;
                 },
                 isYCollision: function (sprite) {
@@ -52,7 +56,12 @@
         },
 
         drawGradientBackground: function () {
-            this.ctx.fillStyle = "rgb(0,0,0)";
+            var lingrad = this.ctx.createLinearGradient(0,0,this.canvas.width,this.canvas.height);
+            lingrad.addColorStop(0, '#00ABEB');
+            lingrad.addColorStop(0.5, '#fff');
+            lingrad.addColorStop(0.5, '#26C000');
+            lingrad.addColorStop(1, '#fff');
+            this.ctx.fillStyle = lingrad;
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         },
 
