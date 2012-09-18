@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WebGL Demo</title>
+        <meta charset="UTF-8" />
+        <meta name="author" content="Andrzej Pragacz" />
+    </head>
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+
+        void main(void) {
+            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+    </script>
+
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+
+        uniform mat4 uMVMatrix;
+        uniform mat4 uPMatrix;
+
+        void main(void) {
+            gl_Position = uPMatrix * uMVMatrix
+                    * vec4(aVertexPosition, 1.0);
+        }
+    </script>
+    <body>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <script type="text/javascript" src="js/lib/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="js/lib/glMatrix-0.9.5.min.js"></script>
+        <script type="text/javascript" src="js/base.js"></script>
+        <script type="text/javascript" src="js/webgl/basic.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var canvas = document.getElementById("canvas");
+                var image1 = new Image();
+                var imagesToLoad = 1;
+
+                var vertices = [
+                     0.0,  1.0,  0.0,
+                    -1.0, -1.0,  0.0,
+                     1.0, -1.0,  0.0
+                ];
+
+
+                var fireUpEngine = function () {
+                    var gl = getGLContext(canvas);
+                    if (!gl) {
+                        alert('no gl ;(')
+                        return;
+                    }
+                    var glInitData = initGL(gl);
+                    var pMatrix = glInitData.projectionMatrix;
+                    var mvMatrix = glInitData.modelViewMatrix;
+                    var vertexShaderCode = document.getElementById("shader-vs").innerHTML;
+                    var fragmentShaderCode = document.getElementById("shader-fs").innerHTML;
+                    var shaderProgram = createShaderProgram(gl, vertexShaderCode, fragmentShaderCode);
+                    var triangleVertexPositionBuffer = createTriangleVertexPositionBuffer(gl, vertices);
+                    console.log('data init ok');
+                    drawScene(gl, shaderProgram, pMatrix, mvMatrix, triangleVertexPositionBuffer);
+                };
+
+                var onLoadImage = function () {
+                    imagesToLoad--;
+                    if (imagesToLoad <= 0) {
+                        fireUpEngine();
+                    }
+                };
+                image1.onload = onLoadImage;
+                image1.src = 'img/megusta.png';
+            });
+
+
+        </script>
+
+    </body>
+</html>
