@@ -2,6 +2,7 @@
 \usetheme{default}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{hyperref}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -17,7 +18,20 @@
 
 \section{Canvas}
 
-\begin{frame}{Brief history of canvas element}
+\begin{frame}{Canvas}
+Basically a new HTML element, introduced in HTML5, which allows to draw object on itself.
+\end{frame}
+
+\begin{frame}{Support}
+\begin{itemize}
+\item Chrome - 9.0+
+\item Firefox - 2.0+
+\item Opera - 9.0+
+\item Safari - 3.1+
+\item Safari (mobile) - 3.2+
+\item Android Browser - 2.1+
+\item Internet Explorer - 9.0+
+\end{itemize}
 \end{frame}
 
 \begin{frame}{What can you do with canvas?}
@@ -149,7 +163,7 @@ canvas objects can also be drawn!
 \end{frame}
 
 
-\begin{frame}{Compatibility}
+\begin{frame}{Support}
 
 \begin{itemize}
 \item Availability depends on graphics card driver (with opengl 2.0 support) and
@@ -200,12 +214,12 @@ let the shaders do all the work
 
 \begin{frame}{Shaders}
 
-vertex shader
+vertex shader (GLSL)
 \lstset{ language=C, basicstyle=\scriptsize,frame=single,
     keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
 \lstinputlisting{webgl/vertex_shader.txt}
 
-fragment shader
+fragment shader (GLSL)
 \lstset{ language=C, basicstyle=\scriptsize,frame=single,
     keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
 \lstinputlisting{webgl/fragment_shader.txt}
@@ -252,6 +266,46 @@ fragment shader
 
 \end{frame}
 
+
+\begin{frame}{More advanced Shaders (with texturing)}
+
+vertex shader (GLSL)
+\lstset{ language=C, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/tex_vertex_shader.txt}
+
+\end{frame}
+
+
+\begin{frame}{More advanced Shaders (with texturing)}
+
+fragment shader (GLSL)
+\lstset{ language=C, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}
+\lstinputlisting{webgl/tex_fragment_shader.txt}
+
+\end{frame}
+
+\begin{frame}{Tutorials}
+\begin{itemize}
+\item \url{https://developer.mozilla.org/en-US/docs/HTML/Canvas}
+\item \url{http://designconcept.webdev20.pl/articles/html5-canvas-podstawy/}
+\item \url{http://learningwebgl.com/blog/}
+\item \url{http://www.khronos.org/webgl/}
+\item \url{http://blog.tojicode.com/}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Demos}
+\begin{itemize}
+\item \url{https://developer.mozilla.org/samples/raycaster/RayCaster.html}
+\item \url{http://www.ibiblio.org/e-notes/webgl/webgl.htm}
+\item \url{http://media.tojicode.com/q3bsp/}
+\item \url{https://developer.mozilla.org/en-US/demos/detail/bananabread}
+\end{itemize}
+
+\end{frame}
 
 \begin{frame}{Libraries}
 

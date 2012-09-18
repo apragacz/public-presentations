@@ -8,4 +8,6 @@ var vertices = [
 //binding data to current buffer
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices),
       gl.STATIC_DRAW);
+triangleVertexPositionBuffer.itemSize = 3;
+triangleVertexPositionBuffer.numItems = 3;
 
