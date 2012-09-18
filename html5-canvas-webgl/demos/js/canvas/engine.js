@@ -63,6 +63,11 @@
             lingrad.addColorStop(1, '#fff');
             this.ctx.fillStyle = lingrad;
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.font = "50px impact";
+            this.ctx.fillStyle = '#FFFFFF';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText('Hello World', this.canvas.width/2, 100);
+
         },
 
         drawCallback: function () {
