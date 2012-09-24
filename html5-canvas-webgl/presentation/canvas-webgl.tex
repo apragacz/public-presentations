@@ -163,23 +163,36 @@ canvas objects can also be drawn!
 \end{frame}
 
 
-\begin{frame}{Support}
+\begin{frame}{Support (desktop browsers)}
 
 \begin{itemize}
-\item Availability depends on graphics card driver (with opengl 2.0 support) and
-support from the browser (google chrome, firefox)
-\item Security issues - Cross-Origin Resource Sharing
-\item Mozilla Firefox - 4.0+ (CORS - 8.0+)
+\item Availability depends not only on browser, but also on installed graphics card driver (with opengl 2.0 support)
+\item Mozilla Firefox - 4.0+ (Cross-Origin Resource Sharing - 8.0+)
 \item Google Chrome - 9+ (CORS - 13.0+)
-\item Safari 5.1+ (disabled by default)
-\item Opera - 11+ (disabled by default)
+\item Safari 5.1+ (but disabled by default)
+\item Opera - 11+ (but disabled by default)
 \item Internet Explorer - nope (but there are plugins, like The Chrome Frame and IEWebGL)
 
 \item Sometimes the support from graphics driver (if any) is not enough - on
-linux software emulation like Mesa library can be helpful
+linux, installing software emulation like Mesa library can be helpful (and also changing the browser config)
 \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}{Support (mobile browsers)}
+
+\begin{itemize}
+\item Nokia N900 - WebGL is available in the stock microB browser from the PR1.2 firmware update onwards.
+\item BlackBerry PlayBook - WebGL is available via WebWorks and browser in PlayBook OS 2.0
+\item Firefox for mobile - WebGL is available for Android devices in unstable builds since early 2011.
+\item The Sony Ericsson Xperia range of Android smartphones have had WebGL capabilities following a firmware upgrade.
+\item Opera Mobile 12 final supports WebGL (on Android only).
+\item WebKit on iOS supports WebGL, as of 4.0. It is enabled in iAd framework, but all other uses of WebKit (e.g. Mobile Safari) have WebGL disabled. WebGL may be enabled in the near future
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}{WebGL philosophy}
 
