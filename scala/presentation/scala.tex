@@ -1,0 +1,171 @@
+\documentclass{beamer}
+\usetheme{default}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\def \lstscalaset {\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}}
+
+\def \lstjavaset {\lstset{ language=Java, basicstyle=\scriptsize,frame=single,
+    keywordstyle=\color{blue},stringstyle=\color{mauve},commentstyle=\color{dkgreen}}}
+
+
+\title{Scala}
+\subtitle{Cool features \& WATs}
+\author{Andrzej Pragacz}
+
+\begin{document}
+
+
+\titlepage
+
+
+
+\section{Basic syntax}
+
+\begin{frame}{Scala}
+Scala...
+\begin{itemize}
+\item is statically typed
+\item clererly mixes object oriented and functional paradigms
+\item is a JVM and .NET language
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example - Hello World}
+\lstscalaset
+\lstinputlisting{scala/basic/hello.scala}
+
+And thats it! Compare it to the Java version:
+
+\lstjavaset
+\lstinputlisting{scala/basic/hello.java}
+
+\end{frame}
+
+\begin{frame}{Type inference}
+\begin{itemize}
+\item scala can infer the types by specifing just the types of the parameters of the function
+\end{itemize}
+\lstscalaset
+\lstinputlisting{scala/basic/inference_weightedavg.scala}
+\end{frame}
+
+\begin{frame}{Conditionals}
+\begin{itemize}
+\item conditionals are basically in the form if (condition) valueIfTrue else valueIfFalse
+\end{itemize}
+
+\lstscalaset
+\lstinputlisting{scala/basic/conditionals_abs.scala}
+
+\end{frame}
+
+\begin{frame}{Blocks}
+\begin{itemize}
+\item block can contain multiple expressions
+\item expressions can be separated by either a newline or a semicolon
+\item the block is evaluated to the last expression in it
+\item you can access the ``parent'' definitions  (global definitions / definitions from upper blocks in given block)
+\item definitions in the block shadow the ``parent'' definitions
+\end{itemize}
+
+\lstscalaset
+\lstinputlisting{scala/basic/block_multiply.scala}
+
+\end{frame}
+
+\begin{frame}{Type inference - recurrent function definitions}
+\begin{itemize}
+\item in addition to the types of input parameters, recursive functions need
+also the return type to be defined
+\end{itemize}
+
+\lstscalaset
+\lstinputlisting{scala/basic/rec_factorial.scala}
+\end{frame}
+
+
+\begin{frame}{Basic data structure - list}
+\end{frame}
+
+\section{Cool features}
+
+\begin{frame}{Anonymous functions}
+\end{frame}
+
+\begin{frame}{def and val}
+\end{frame}
+
+\begin{frame}{Example - and operator}
+\end{frame}
+
+\begin{frame}{Example - and operator}
+\end{frame}
+
+
+\begin{frame}{lazy val}
+\end{frame}
+
+\begin{frame}{Tail recursion}
+\end{frame}
+
+\begin{frame}{Defining operators}
+\end{frame}
+
+\begin{frame}{Case classes and pattern matching}
+\end{frame}
+
+\begin{frame}{Type system}
+\end{frame}
+
+\begin{frame}{Type Co(ntra)variance}
+\end{frame}
+
+\begin{frame}{Callable objects}
+\end{frame}
+
+\begin{frame}{Example - Function type}
+\end{frame}
+
+\begin{frame}{List comprehensions}
+\end{frame}
+
+\begin{frame}{Scala REPL}
+\end{frame}
+
+\begin{frame}{SBT}
+\end{frame}
+
+\begin{frame}{Tuples}
+\end{frame}
+
+\begin{frame}{Example - returning multiple values}
+\end{frame}
+
+\begin{frame}{streams}
+\end{frame}
+
+\begin{frame}{Example - prime stream}
+\end{frame}
+
+\begin{frame}{Actors}
+\end{frame}
+
+\section{WATs}
+
+\begin{frame}{Array index accessors}
+\end{frame}
+
+\begin{frame}{Partial application}
+\end{frame}
+
+\begin{frame}{Tuple accessors}
+\end{frame}
+
+\end{document}
