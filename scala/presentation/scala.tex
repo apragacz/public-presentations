@@ -50,7 +50,7 @@ And thats it! Compare it to the Java version:
 
 \begin{frame}{Type inference}
 \begin{itemize}
-\item scala can infer the types by specifing just the types of the parameters of the function
+\item Scala can infer the types by specifing just the types of the parameters of the function
 \end{itemize}
 \lstscalaset
 \lstinputlisting{scala/basic/inference_weightedavg.scala}
@@ -58,7 +58,7 @@ And thats it! Compare it to the Java version:
 
 \begin{frame}{Conditionals}
 \begin{itemize}
-\item conditionals are basically in the form if (condition) valueIfTrue else valueIfFalse
+\item Conditionals are basically in the form if (condition) valueIfTrue else valueIfFalse
 \end{itemize}
 
 \lstscalaset
@@ -68,12 +68,12 @@ And thats it! Compare it to the Java version:
 
 \begin{frame}{Blocks}
 \begin{itemize}
-\item block can contain multiple expressions
-\item expressions can be separated by either a newline or a semicolon
-\item the block is evaluated to the last expression in it
-\item definitions in the block are contained in it
-\item you can access the ``parent'' definitions  (global definitions / definitions from upper blocks in given block)
-\item definitions in the block shadow the ``parent'' definitions
+\item Block can contain multiple expressions
+\item Expressions can be separated by either a newline or a semicolon
+\item The block is evaluated to the last expression in it
+\item Definitions in the block are contained in it
+\item You can access the ``parent'' definitions  (global definitions / definitions from upper blocks in given block)
+\item Definitions in the block shadow the ``parent'' definitions
 \end{itemize}
 
 \lstscalaset
@@ -83,7 +83,7 @@ And thats it! Compare it to the Java version:
 
 \begin{frame}{Type inference - recurrent function definitions}
 \begin{itemize}
-\item in addition to the types of input parameters, recursive functions need
+\item In addition to the types of input parameters, recursive functions need
 also the return type to be defined
 \end{itemize}
 
@@ -103,7 +103,7 @@ also the return type to be defined
 \begin{itemize}
 \item In scala, you can construct anonymous functions (``lambdas'')
 which allow you to put code in place, without defining additional functions somewhere
-\item also most collections (e.g. lists) implement methods which are high order
+\item Also most collections (e.g. lists) implement methods which are high order
 functions which can
 take some function and return something which also can be a function
 \end{itemize}
@@ -116,7 +116,7 @@ take some function and return something which also can be a function
 
 \begin{frame}{val, var, def and lazy val}
 \begin{itemize}
-\item in scala you have different way to define your primitives
+\item In scala you have different way to define your primitives
 \item val defines something which is evaluated when it is defined
 \item var is the same, except it can be reassigned
 \item def is evaluated each time when it is accessed
@@ -124,14 +124,11 @@ take some function and return something which also can be a function
 \end{itemize}
 \end{frame}
 
-\begin{frame}{example}
-\end{frame}
-
-\begin{frame}{lazy function argument evaluation}
+\begin{frame}{Lazy function argument evaluation}
 \begin{itemize}
-\item in most languages the parameters of a function are evaluated, and
+\item In most languages the parameters of a function are evaluated, and
 then passed to the function
-\item scala allows you to control when the expression supplied as function
+\item Scala allows you to control when the expression supplied as function
 parameter should be evaluated
 \end{itemize}
 \end{frame}
@@ -182,6 +179,20 @@ parameter should be evaluated
 \lstinputlisting{scala/cool/operators_fractions2.scala}
 \end{frame}
 
+\begin{frame}{Traits}
+\begin{itemize}
+\item Traits are like Java intefaces, but more powerful
+\item They can also contain method definitions, value definitions
+\item the only difference from class is that they cannot be parametrized
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example - Observer Pattern}
+\lstscalaset
+\lstinputlisting{scala/cool/trait_subject.scala}
+\end{frame}
+
+
 \begin{frame}{Callable objects}
 \begin{itemize}
 \item In scala, you can make the objects callable by adding method named
@@ -198,7 +209,8 @@ parameter should be evaluated
 \begin{itemize}
 \item scala allows to define special classes, which can be ``decomposable''
 in some way
-\item it may be useful when the algorithm needs to
+\item it may be useful when the algorithm needs to do different things
+according to the input parameter
 \end{itemize}
 \end{frame}
 
@@ -231,44 +243,66 @@ type $B$ one should also be able to do with a value of type $A$.
 \end{frame}
 
 \begin{frame}{Example - Function type \& List type}
+\begin{itemize}
+\item Function type:
 \lstscalaset
 \lstinputlisting{scala/cool/variance_functions.scala}
 
+\item List type:
 \lstscalaset
 \lstinputlisting{scala/cool/variance_lists.scala}
 
-And what about arrays?
+\item And what about arrays?
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}{List comprehensions}
 \begin{itemize}
-\item using functions like map, reduce, filter, you can easily find in the collections
+\item Using functions like map, reduce, filter, you can easily find in the collections
 what you are looking for
-\item unfortunately, this does not always looks clear
-\item fortunately, scala has list comprehensions
+\item Unfortunately, this does not always looks clear
+\item Fortunately, scala has list comprehensions
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Examples - String reverse \& dot product}
+\begin{itemize}
+\item Dot product:
 \lstscalaset
 \lstinputlisting{scala/cool/listcomp_dot_product.scala}
 
+\item Reverse of string:
 \lstscalaset
 \lstinputlisting{scala/cool/listcomp_reverse_string.scala}
+
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Scala REPL}
+
+\begin{frame}{Example - Find solution of $x^2 + y^2 = 80$}
+\lstscalaset
+\lstinputlisting{scala/cool/listcomp_sum_of_squares_eq.scala}
 \end{frame}
 
-\begin{frame}{SBT}
+\begin{frame}{SBT \& Scala REPL}
+\begin{itemize}
+\item sbt is very useful tool for managing scala project
+\item useful subcommands:
+\begin{itemize}
+\item sbt compile
+\item sbt run
+\item sbt $\sim$compile - watches for changes
+\item sbt console - REPL
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Tuples}
 \begin{itemize}
-\item scala allows to create tuples, which basically are structures and may hold
+\item Scala allows to create tuples, which basically are structures and may hold
 objects of different types
-\item it may be questionable whether tuples should be used as they lack semantical
+\item It may be questionable whether tuples should be used as they lack semantical
 information, but still they can be handy sometimes
 \end{itemize}
 \end{frame}
@@ -278,10 +312,10 @@ information, but still they can be handy sometimes
 \lstinputlisting{scala/cool/tuples_add_and_mul.scala}
 \end{frame}
 
-\begin{frame}{streams}
+\begin{frame}{Streams}
 \begin{itemize}
-\item streams are basically lazy evaluated lists
-\item they can be potentially infinite
+\item Streams are basically lazy evaluated lists
+\item They can be potentially infinite
 \end{itemize}
 \end{frame}
 
@@ -291,6 +325,19 @@ information, but still they can be handy sometimes
 \end{frame}
 
 \begin{frame}{Actors}
+\begin{itemize}
+\item Actors are basically some runnables which receive some data and respond to it
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example - cookie monster}
+\lstscalaset
+\lstinputlisting{scala/cool/actors_cookiemonster.scala}
+\end{frame}
+
+\begin{frame}{Example - cookie monster}
+\lstscalaset
+\lstinputlisting{scala/cool/actors_cookiemonster_usage.scala}
 \end{frame}
 
 \section{WATs}
@@ -298,6 +345,7 @@ information, but still they can be handy sometimes
 \begin{frame}{Array index accessors}
 \begin{itemize}
 \item arrays are accessed like they would be functions - $a(0)$
+\item this is consequence of using square brackets for type parameters
 \end{itemize}
 \end{frame}
 
@@ -314,6 +362,9 @@ information, but still they can be handy sometimes
 \begin{frame}{Tuple accessors}
 \lstscalaset
 \lstinputlisting{scala/wat/tuple_accessors.scala}
+\end{frame}
+
+\begin{frame}{Questions?}
 \end{frame}
 
 \end{document}
