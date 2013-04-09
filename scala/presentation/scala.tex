@@ -71,6 +71,7 @@ And thats it! Compare it to the Java version:
 \item block can contain multiple expressions
 \item expressions can be separated by either a newline or a semicolon
 \item the block is evaluated to the last expression in it
+\item definitions in the block are contained in it
 \item you can access the ``parent'' definitions  (global definitions / definitions from upper blocks in given block)
 \item definitions in the block shadow the ``parent'' definitions
 \end{itemize}
@@ -92,48 +93,169 @@ also the return type to be defined
 
 
 \begin{frame}{Basic data structure - list}
+\lstscalaset
+\lstinputlisting{scala/basic/list_reverse.scala}
 \end{frame}
 
 \section{Cool features}
 
-\begin{frame}{Anonymous functions}
+\begin{frame}{Anonymous functions \& higher order functions}
+\begin{itemize}
+\item In scala, you can construct anonymous functions (``lambdas'')
+which allow you to put code in place, without defining additional functions somewhere
+\item also most collections (e.g. lists) implement methods which are high order
+functions which can
+take some function and return something which also can be a function
+\end{itemize}
 \end{frame}
 
-\begin{frame}{def and val}
+\begin{frame}{Example - sum of squares}
+\lstscalaset
+\lstinputlisting{scala/cool/high_order_sum.scala}
 \end{frame}
 
-\begin{frame}{Example - and operator}
+\begin{frame}{val, var, def and lazy val}
+\begin{itemize}
+\item in scala you have different way to define your primitives
+\item val defines something which is evaluated when it is defined
+\item var is the same, except it can be reassigned
+\item def is evaluated each time when it is accessed
+\item lazy val is evaluated only the first time when it is accessed
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Example - and operator}
+\begin{frame}{example}
 \end{frame}
 
+\begin{frame}{lazy function argument evaluation}
+\begin{itemize}
+\item in most languages the parameters of a function are evaluated, and
+then passed to the function
+\item scala allows you to control when the expression supplied as function
+parameter should be evaluated
+\end{itemize}
+\end{frame}
 
-\begin{frame}{lazy val}
+\begin{frame}{Example - non-eager AND operator}
+\lstscalaset
+\lstinputlisting{scala/cool/noneager_and.scala}
+\end{frame}
+
+\begin{frame}{Example - non-eager while}
+\lstscalaset
+\lstinputlisting{scala/cool/noneager_while.scala}
 \end{frame}
 
 \begin{frame}{Tail recursion}
+\lstscalaset
+\lstinputlisting{scala/cool/tailrec_factorial.scala}
 \end{frame}
 
 \begin{frame}{Defining operators}
+\begin{itemize}
+\item in scala you do not overload operators
+\item you define them
+\item the operator precedence is based on first character of operator:
+    \begin{enumerate}
+    \item (all letters)
+    \item $|$
+    \item \^{}
+    \item \&
+    \item $<$ $>$
+    \item = !
+    \item :
+    \item + -
+    \item * / \%
+    \item(all other special characters)
+
+    \end{enumerate}
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Case classes and pattern matching}
+\begin{frame}{Example - fraction class}
+\lstscalaset
+\lstinputlisting{scala/cool/operators_fractions1.scala}
 \end{frame}
 
-\begin{frame}{Type system}
-\end{frame}
-
-\begin{frame}{Type Co(ntra)variance}
+\begin{frame}{Example - fraction class (cont.)}
+\lstscalaset
+\lstinputlisting{scala/cool/operators_fractions2.scala}
 \end{frame}
 
 \begin{frame}{Callable objects}
+\begin{itemize}
+\item In scala, you can make the objects callable by adding method named
+``apply'' which takes required parameters
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Example - Function type}
+\begin{frame}{Example - two argument operators}
+\lstscalaset
+\lstinputlisting{scala/cool/callable_operators.scala}
 \end{frame}
+
+\begin{frame}{Case classes and pattern matching}
+\begin{itemize}
+\item scala allows to define special classes, which can be ``decomposable''
+in some way
+\item it may be useful when the algorithm needs to
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example - expression evaluation}
+\lstscalaset
+\lstinputlisting{scala/cool/patmat_expressions.scala}
+\end{frame}
+
+\begin{frame}{Type system}
+\begin{itemize}
+\item the type Any is the base type
+\item the type AnyVal is the base type of classes like Int, Double, Boolean
+\item the type AnyRef is the base type of ScalaObject class, which is base type for instance for List
+\item the String type is not a subtype of ScalaObject, but actualy the Java String
+\item null has special Null type, which is a subtype of all AnyRef subtypes
+\item there is also a special type Noting, which is subtype of all types
+\item what is the type of empty list?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Type Co(ntra)variance}
+\begin{itemize}
+\item if $A <: B$,  then we say that $A$ is a subtype of $B$
+\item in this case, if  $C[A] <: C[B]$ then $C$ is covariant
+\item in this case, if  $C[B] <: C[A]$ then $C$ is contravariant
+\item If $A <: B$, then everything one can to do with a value of
+type $B$ one should also be able to do with a value of type $A$.
+\item Covariance is designated by $+$, contravariance by $-$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example - Function type \& List type}
+\lstscalaset
+\lstinputlisting{scala/cool/variance_functions.scala}
+
+\lstscalaset
+\lstinputlisting{scala/cool/variance_lists.scala}
+
+And what about arrays?
+\end{frame}
+
 
 \begin{frame}{List comprehensions}
+\begin{itemize}
+\item using functions like map, reduce, filter, you can easily find in the collections
+what you are looking for
+\item unfortunately, this does not always looks clear
+\item fortunately, scala has list comprehensions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Examples - String reverse \& dot product}
+\lstscalaset
+\lstinputlisting{scala/cool/listcomp_dot_product.scala}
+
+\lstscalaset
+\lstinputlisting{scala/cool/listcomp_reverse_string.scala}
 \end{frame}
 
 \begin{frame}{Scala REPL}
@@ -143,15 +265,29 @@ also the return type to be defined
 \end{frame}
 
 \begin{frame}{Tuples}
+\begin{itemize}
+\item scala allows to create tuples, which basically are structures and may hold
+objects of different types
+\item it may be questionable whether tuples should be used as they lack semantical
+information, but still they can be handy sometimes
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Example - returning multiple values}
+\lstscalaset
+\lstinputlisting{scala/cool/tuples_add_and_mul.scala}
 \end{frame}
 
 \begin{frame}{streams}
+\begin{itemize}
+\item streams are basically lazy evaluated lists
+\item they can be potentially infinite
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Example - prime stream}
+\lstscalaset
+\lstinputlisting{scala/cool/streams_primes.scala}
 \end{frame}
 
 \begin{frame}{Actors}
@@ -160,12 +296,24 @@ also the return type to be defined
 \section{WATs}
 
 \begin{frame}{Array index accessors}
+\begin{itemize}
+\item arrays are accessed like they would be functions - $a(0)$
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Partial application}
+\lstscalaset
+\lstinputlisting{scala/wat/partial_application.scala}
+\end{frame}
+
+\begin{frame}{Partial application continued}
+\lstscalaset
+\lstinputlisting{scala/wat/partial_application2.scala}
 \end{frame}
 
 \begin{frame}{Tuple accessors}
+\lstscalaset
+\lstinputlisting{scala/wat/tuple_accessors.scala}
 \end{frame}
 
 \end{document}
