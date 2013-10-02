@@ -1,0 +1,4 @@
+head(SP)
+summary(SP500)
+plot(SP500)
+plot(SP500,xlab="date",ylab="price",main="S&P 500",type="l")
