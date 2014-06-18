@@ -1,4 +1,4 @@
-## Web Components & Polymer
+# Web Components & Polymer
 
 Andrzej Pragacz
 
