@@ -6,7 +6,7 @@
 
         <title>Web Components &amp; Polymer</title>
 
-        <meta name="description" content="Presentation about web Components and Polymer polyfii">
+        <meta name="description" content="Presentation about web Components and Polymer polyfill">
         <meta name="author" content="Andrzej Pragacz">
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,18 +129,26 @@
 <section id="shadow-dom" class="level2">
 <h2>Shadow DOM</h2>
 <ul>
-<li>the concept of tree of trees</li>
-</ul>
+<li><p>the concept of tree of trees</p>
 <figure>
 <img src="img/inception.jpg" />
-</figure>
-<ul>
+</figure></li>
 <li>Shadow host</li>
 <li>Shadow roots</li>
-<li>Insertion points</li>
+<li><p>Insertion points</p></li>
 </ul>
 </section>
 <section id="shadow-dom-1" class="level2">
+<h2>Shadow DOM</h2>
+<ul>
+<li><p>Somewhat implemented in chrome</p>
+<ol type="1">
+<li>for instance, go to page with embedded &lt;video&gt; tag</li>
+<li>enable &quot;Show user agent shadow DOM&quot; in developer tools settings</li>
+</ol></li>
+</ul>
+</section>
+<section id="shadow-dom-2" class="level2">
 <h2>Shadow DOM</h2>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="123 12 663 598" width="530" height="478">
 <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:date>2013-07-12 01:16Z</dc:date><!-- Produced by OmniGraffle Professional 5.4.4 --></metadata><defs><filter id="Shadow" filterUnits="userSpaceOnUse"><feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="3.488"/><feOffset in="blur" result="offset" dx="0" dy="4"/><feFlood flood-color="black" flood-opacity=".75" result="flood"/><feComposite in="flood" in2="offset" operator="in"/></filter><filter id="Shadow_2" filterUnits="userSpaceOnUse"><feOffset in="SourceAlpha" result="offset" dx="0" dy="2"/><feFlood flood-color="black" flood-opacity=".4" result="flood"/><feComposite in="flood" in2="offset" operator="in"/></filter><font-face font-family="Helvetica" font-size="12" units-per-em="1000" underline-position="-75.683594" underline-thickness="49.316406" slope="0" x-height="522.94922" cap-height="717.28516" ascent="770.01953" descent="-229.98047" font-weight="500"><font-face-src><font-face-name name="Helvetica"/></font-face-src></font-face><marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black"><g><path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/></g></marker><marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="#66f"><g><path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/></g></marker></defs><g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
@@ -189,7 +197,7 @@ taken from W3C Draft
 <ul>
 <li>Polyfill (shim) for web components</li>
 <li>Focused on compatibility, not on speed</li>
-<li>actually a bunch of</li>
+<li>actually a so-called &quot;platform&quot; + bunch of non-mandatory components</li>
 </ul>
 </section>
 <section id="installing-some-components" class="level2">

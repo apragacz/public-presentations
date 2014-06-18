@@ -93,11 +93,18 @@ So is the \<details\> tag in the DOM or not?
 
 * the concept of tree of trees
 
-![](img/inception.jpg)
+    ![](img/inception.jpg)
 
 * Shadow host
 * Shadow roots
 * Insertion points
+
+## Shadow DOM
+
+* Somewhat implemented in chrome
+
+    1. for instance, go to page with embedded \<video\> tag
+    2. enable "Show user agent shadow DOM" in developer tools settings
 
 
 ## Shadow DOM
@@ -131,7 +138,7 @@ So is the \<details\> tag in the DOM or not?
 
 * Polyfill (shim) for web components
 * Focused on compatibility, not on speed
-* actually a bunch of
+* actually a so-called "platform" + bunch of non-mandatory components
 
 
 ## Installing some components
