@@ -317,10 +317,11 @@ That's it!
 
 ## Sauce
 
-* http://www.w3.org/TR/components-intro/
-* http://w3c.github.io/webcomponents/
-* http://css-tricks.com/modular-future-web-components/
-* http://webcomponents.org/
-* http://customelements.io/
-* http://www.polymer-project.org/
-* https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/polymer/
+* [www.w3.org/TR/components-intro/](http://www.w3.org/TR/components-intro/)
+* [w3c.github.io/webcomponents/](http://w3c.github.io/webcomponents/)
+* [css-tricks.com/modular-future-web-components/](http://css-tricks.com/modular-future-web-components/)
+* [webcomponents.org](http://webcomponents.org/)
+* [customelements.io](http://customelements.io/)
+* [polymer-project.org](http://www.polymer-project.org/)
+* [Polymer TodoMVC](http://todomvc.com/architecture-examples/polymer/index.html)
+* [All About Polymer at SFHTML5](https://www.youtube.com/watch?v=mN7IAaRdi_k)
