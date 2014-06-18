@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Web Components &amp; Polymer</title>
+
+        <meta name="description" content="Presentation about web Components and Polymer polyfii">
+        <meta name="author" content="Andrzej Pragacz">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../../revealjs-common/css/reveal.min.css">
+        <link rel="stylesheet" href="../../revealjs-common/css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../revealjs-common/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '../../revealjs-common/css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+<section id="web-components-polymer" class="level1">
+<h1>Web Components &amp; Polymer</h1>
+<p>Andrzej Pragacz</p>
+</section>
+<section id="web-components" class="level2">
+<h2>Web components</h2>
+<ul>
+<li>basically, component-wise approach to the development.</li>
+<li>Still not widely implemented</li>
+</ul>
+</section>
+<section id="web-components-current-w3c-spec" class="level2">
+<h2>Web components current W3C spec</h2>
+<ul>
+<li>Templates</li>
+<li>Decorators</li>
+<li>Shadow DOM</li>
+<li>Custom elements</li>
+<li>HTML Imports</li>
+</ul>
+</section>
+<section id="template-example" class="level2">
+<h2>Template example</h2>
+<pre><code>    &lt;template id=&quot;commentTemplate&quot;&gt;
+      &lt;div&gt;
+        &lt;img src=&quot;&quot;&gt;
+        &lt;div class=&quot;comment-text&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;</code></pre>
+</section>
+<section id="using-template" class="level2">
+<h2>Using template</h2>
+<pre><code>    function addComment(imageUrl, text) {
+      var t = document.querySelector(&quot;#commentTemplate&quot;);
+      var comment = t.content.cloneNode(true);
+      // Populate content.
+      comment.querySelector(&#39;img&#39;).src = imageUrl;
+      comment.querySelector(&#39;.comment-text&#39;).textContent = text;
+      document.body.appendChild(comment);
+    }</code></pre>
+<ul>
+<li>similar to cloning existing DOM elements</li>
+<li>the difference here is that template content is not the part of the DOM before cloning</li>
+</ul>
+</section>
+<section id="decorators-example" class="level2">
+<h2>Decorators example</h2>
+<pre><code>    &lt;decorator id=&quot;details-open&quot;&gt;
+      &lt;template&gt;
+        &lt;a id=&quot;summary&quot;&gt;
+          &amp;blacktriangledown;
+          &lt;content select=&quot;summary&quot;&gt;&lt;/content&gt;
+        &lt;/a&gt;
+        &lt;content&gt;&lt;/content&gt;
+      &lt;/template&gt;
+    &lt;/decorator&gt;</code></pre>
+</section>
+<section id="using-decorators" class="level2">
+<h2>Using decorators</h2>
+<p>Applying the CSS rule:</p>
+<pre><code>    details[open] {
+      decorator: url(#details-open);
+    }</code></pre>
+<p>On following markup:</p>
+<pre><code>    &lt;details open&gt;
+      &lt;summary&gt;Timepieces&lt;/summary&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Sundial
+        &lt;li&gt;Cuckoo clock
+        &lt;li&gt;Wristwatch
+      &lt;/ul&gt;
+    &lt;/details&gt;</code></pre>
+</section>
+<section id="using-decorators-cont." class="level2">
+<h2>Using decorators (cont.)</h2>
+<p>...Will render something similar to this:</p>
+<pre><code>    &lt;a id=&quot;summary&quot;&gt;&amp;blacktriangledown;Timepieces&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Sundial
+      &lt;li&gt;Cuckoo clock
+      &lt;li&gt;Wristwatch
+    &lt;/ul&gt;</code></pre>
+<p>So is the &lt;details&gt; tag in the DOM or not?</p>
+</section>
+<section id="shadow-dom" class="level2">
+<h2>Shadow DOM</h2>
+<ul>
+<li>the concept of tree of trees</li>
+</ul>
+<figure>
+<img src="img/inception.jpg" />
+</figure>
+<ul>
+<li>Shadow host</li>
+<li>Shadow roots</li>
+<li>Insertion points</li>
+</ul>
+</section>
+<section id="shadow-dom-1" class="level2">
+<h2>Shadow DOM</h2>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="123 12 663 598" width="530" height="478">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:date>2013-07-12 01:16Z</dc:date><!-- Produced by OmniGraffle Professional 5.4.4 --></metadata><defs><filter id="Shadow" filterUnits="userSpaceOnUse"><feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="3.488"/><feOffset in="blur" result="offset" dx="0" dy="4"/><feFlood flood-color="black" flood-opacity=".75" result="flood"/><feComposite in="flood" in2="offset" operator="in"/></filter><filter id="Shadow_2" filterUnits="userSpaceOnUse"><feOffset in="SourceAlpha" result="offset" dx="0" dy="2"/><feFlood flood-color="black" flood-opacity=".4" result="flood"/><feComposite in="flood" in2="offset" operator="in"/></filter><font-face font-family="Helvetica" font-size="12" units-per-em="1000" underline-position="-75.683594" underline-thickness="49.316406" slope="0" x-height="522.94922" cap-height="717.28516" ascent="770.01953" descent="-229.98047" font-weight="500"><font-face-src><font-face-name name="Helvetica"/></font-face-src></font-face><marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black"><g><path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/></g></marker><marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="#66f"><g><path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/></g></marker></defs><g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+<title>
+Distributions
+</title>
+<g>
+<title>
+Trees
+</title>
+<g><use xl:href="#id1424_Graphic" filter="url(#Shadow)"/><use xl:href="#id1427_Graphic" filter="url(#Shadow)"/><use xl:href="#id1441_Graphic" filter="url(#Shadow)"/><use xl:href="#id27_Graphic" filter="url(#Shadow_2)"/></g><g id="id1424_Graphic"><rect x="143" y="28.5" width="249" height="254.5" fill="white"/><rect x="143" y="28.5" width="249" height="254.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(148 33.5)" fill="black"><tspan font-family="Helvetica" font-size="12" font-weight="500" x="0" y="11" textLength="76.710938">document tree</tspan></text></g><g id="id1427_Graphic"><rect x="143" y="314" width="249" height="272" fill="white"/><rect x="143" y="314" width="249" height="272" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(148 319)" fill="black"><tspan font-family="Helvetica" font-size="12" font-weight="500" x="0" y="11" textLength="65.373047">shadow tree</tspan></text></g><g id="id1441_Graphic"><rect x="505" y="28.5" width="260.29468" height="439.5" fill="white"/><rect x="505" y="28.5" width="260.29468" height="439.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(510 33.5)" fill="black"><tspan font-family="Helvetica" font-size="12" font-weight="500" x="0" y="11" textLength="79.376953">composed tree</tspan></text></g><g id="id27_Graphic"><path d="M 418.74257 290.67712 L 418.97644 280.90258 L 469.28798 282.10636 L 469.53432 271.81066 L 484.14057 287.3518 L 468.80777 302.1766 L 469.0541 291.8809 Z" fill="black" fill-opacity=".1"/><path d="M 418.74257 290.67712 L 418.97644 280.90258 L 469.28798 282.10636 L 469.53432 271.81066 L 484.14057 287.3518 L 468.80777 302.1766 L 469.0541 291.8809 Z" stroke="black" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g></g><g>
+<title>
+Nodes
+</title>
+<g><use xl:href="#id1318_Graphic" filter="url(#Shadow)"/><use xl:href="#id1207_Graphic" filter="url(#Shadow)"/><use xl:href="#id1205_Graphic" filter="url(#Shadow)"/><use xl:href="#id1203_Graphic" filter="url(#Shadow)"/><use xl:href="#id1257_Graphic" filter="url(#Shadow)"/><use xl:href="#id1256_Graphic" filter="url(#Shadow)"/><use xl:href="#id1254_Graphic" filter="url(#Shadow)"/><use xl:href="#id1253_Graphic" filter="url(#Shadow)"/><use xl:href="#id1433_Graphic" filter="url(#Shadow)"/><use xl:href="#id1435_Graphic" filter="url(#Shadow)"/><use xl:href="#id1437_Graphic" filter="url(#Shadow)"/><use xl:href="#id1439_Graphic" filter="url(#Shadow)"/><use xl:href="#id1447_Graphic" filter="url(#Shadow)"/><use xl:href="#id1450_Graphic" filter="url(#Shadow)"/><use xl:href="#id1451_Graphic" filter="url(#Shadow)"/><use xl:href="#id1452_Graphic" filter="url(#Shadow)"/><use xl:href="#id1457_Graphic" filter="url(#Shadow)"/><use xl:href="#id1458_Graphic" filter="url(#Shadow)"/><use xl:href="#id1462_Graphic" filter="url(#Shadow)"/><use xl:href="#id1463_Graphic" filter="url(#Shadow)"/><use xl:href="#id1464_Graphic" filter="url(#Shadow)"/><use xl:href="#id1466_Graphic" filter="url(#Shadow)"/><use xl:href="#id1467_Graphic" filter="url(#Shadow)"/><use xl:href="#id1468_Graphic" filter="url(#Shadow)"/></g><line x1="351.17557" y1="485.97503" x2="352.33774" y2="513.1368" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="261.48423" y1="183.15432" x2="250.97123" y2="215.44271" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="250.7648" y1="176.65342" x2="204.16006" y2="224.27147" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="351.0015" y1="182.50001" x2="351.00298" y2="209.59999" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1318_Graphic"><circle cx="351" cy="247" r="27.000044" fill="#008040"/><circle cx="351" cy="247" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><line x1="307.87901" y1="87.17598" x2="287.83063" y2="124.116" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="329.52895" y1="89.15004" x2="339.40687" y2="119.436104" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1207_Graphic"><circle cx="321" cy="63" r="27.000044" fill="#0080ff"/><circle cx="321" cy="63" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(295.4 56)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x=".150390625" y="11" textLength="52.69922">document</tspan></text></g><g id="id1205_Graphic"><circle cx="351" cy="155" r="27.000044" fill="#008040"/><circle cx="351" cy="155" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1203_Graphic"><circle cx="270" cy="157" r="27.000044" fill="#008040"/><circle cx="270" cy="157" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(249.4 143)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x=".31933594" y="11" textLength="41.361328">shadow</tspan><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="9.6591797" y="25" textLength="22.68164">host</tspan></text></g><line x1="249.76987" y1="478.15839" x2="205.15512" y2="523.7667" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="274.29108" y1="485.48902" x2="279.8392" y2="513.78913" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="294.97653" y1="392.11553" x2="282.63102" y2="423.66517" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1257_Graphic"><circle cx="305" cy="366.5" r="27.000044" fill="#0080ff"/><circle cx="305" cy="366.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(284.4 352.5)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x=".31933594" y="11" textLength="41.361328">shadow</tspan><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="10.661133" y="25" textLength="20.677734">root</tspan></text></g><g id="id1256_Graphic"><circle cx="269" cy="458.5" r="27.000044" fill="#008040"/><circle cx="269" cy="458.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1254_Graphic"><circle cx="287" cy="550.5" r="27.000044" fill="#008040"/><circle cx="287" cy="550.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1253_Graphic"><circle cx="179" cy="550.5" r="27.000044" fill="red"/><circle cx="179" cy="550.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(156.4 536.5)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x=".32128906" y="11" textLength="45.357422">insertion</tspan><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="9.989258" y="25" textLength="26.021484">point</tspan></text></g><line x1="274.53182" y1="184.12616" x2="298.83685" y2="329.60917" marker-end="url(#FilledArrow_Marker_2)" stroke="#66f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="4,4"/><text transform="translate(302.7937 293.50712)" fill="black"><tspan font-family="Helvetica" font-size="12" font-weight="500" x=".15917969" y="11" textLength="28.68164">hosts</tspan></text><g id="id1433_Graphic"><circle cx="178.00006" cy="251" r="27.000044" fill="#008040"/><circle cx="178.00006" cy="251" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(161.40006 244)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="4.2601563" y="11" textLength="24.679688">child</tspan></text></g><g id="id1435_Graphic"><circle cx="239.35779" cy="251" r="27.000044" fill="#008040"/><circle cx="239.35779" cy="251" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(222.75779 244)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="4.2601563" y="11" textLength="24.679688">child</tspan></text></g><g id="id1437_Graphic"><circle cx="350" cy="458.5" r="27.000044" fill="#008040"/><circle cx="350" cy="458.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><line x1="317.0806" y1="391.21261" x2="333.55023" y2="424.90366" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1439_Graphic"><circle cx="354" cy="550.5" r="27.000044" fill="#008040"/><circle cx="354" cy="550.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><line x1="726.19067" y1="350.97438" x2="727.38075" y2="378.43492" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="634.31203" y1="182.34579" x2="616.0489" y2="225.65553" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/><line x1="624.8693" y1="175.73555" x2="564.13084" y2="232.26452" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/><line x1="726" y1="182.50001" x2="726" y2="209.59999" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1447_Graphic"><circle cx="726" cy="247" r="27.000044" fill="#008040"/><circle cx="726" cy="247" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><line x1="682.8823" y1="87.17776" x2="662.8389" y2="124.120485" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="704.52735" y1="89.15056" x2="714.40344" y2="119.43722" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1450_Graphic"><circle cx="696" cy="63" r="27.000044" fill="#0080ff"/><circle cx="696" cy="63" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(670.4 56)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x=".150390625" y="11" textLength="52.69922">document</tspan></text></g><g id="id1451_Graphic"><circle cx="726" cy="155" r="27.000044" fill="#008040"/><circle cx="726" cy="155" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1452_Graphic"><circle cx="645" cy="157" r="27.000044" fill="#008040"/><circle cx="645" cy="157" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(624.4 143)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x=".31933594" y="11" textLength="41.361328">shadow</tspan><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="9.6591797" y="25" textLength="22.68164">host</tspan></text></g><line x1="649.27007" y1="350.4931" x2="654.8526" y2="379.08655" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><g id="id1457_Graphic"><circle cx="644" cy="323.5" r="27.000044" fill="#008040"/><circle cx="644" cy="323.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1458_Graphic"><circle cx="662" cy="415.80002" r="27.000044" fill="#008040"/><circle cx="662" cy="415.80002" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1462_Graphic"><circle cx="544.00006" cy="251" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1463_Graphic"><circle cx="605.3578" cy="251" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1464_Graphic"><circle cx="725" cy="323.5" r="27.000044" fill="#008040"/><circle cx="725" cy="323.5" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1466_Graphic"><circle cx="729" cy="415.80002" r="27.000044" fill="#008040"/><circle cx="729" cy="415.80002" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/></g><g id="id1467_Graphic"><circle cx="542" cy="415.80002" r="27.000044" fill="#008040"/><circle cx="542" cy="415.80002" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(525.4 408.80002)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="4.2601563" y="11" textLength="24.679688">child</tspan></text></g><g id="id1468_Graphic"><circle cx="600" cy="415.80002" r="27.000044" fill="#008040"/><circle cx="600" cy="415.80002" r="27.000044" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><text transform="translate(583.4 408.80002)" fill="white"><tspan font-family="Helvetica" font-size="12" font-weight="500" fill="white" x="4.2601563" y="11" textLength="24.679688">child</tspan></text></g><line x1="623.6088" y1="341.95214" x2="569.73212" y2="390.70554" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="632.16515" y1="348.33125" x2="616.1014" y2="382.03532" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="644.83493" y1="184.49952" x2="644.22504" y2="286.10066" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="656.913" y1="181.79386" x2="708.7996" y2="289.78269" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/><line x1="543.66634" y1="278.498" x2="542.4539" y2="378.40275" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/><line x1="604.4642" y1="278.48558" x2="601.2153" y2="378.41967" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/><rect x="510.2891" y="297.58115" width="66" height="24" fill="white"/><text transform="translate(515.2891 302.58115)" fill="black"><tspan font-family="Helvetica" font-size="12" font-weight="500" x=".31738281" y="11" textLength="55.365234">distributed</tspan></text><text transform="translate(576.0725 283.53462)" fill="black"><tspan font-family="Helvetica" font-size="12" font-weight="500" x=".31738281" y="11" textLength="55.365234">distributed</tspan></text></g></g>
+</svg>
+
+<p style="font-size: 12pt; text-align: right;">
+taken from W3C Draft
+</p>
+
+</section>
+<section id="custom-elements-registration" class="level2">
+<h2>Custom elements registration</h2>
+<pre><code>    document.registerElement(&#39;x-foo&#39;, {
+      prototype: Object.create(HTMLParagraphElement.prototype, {
+        firstMember: {
+          get: function() { return &quot;foo&quot;; },
+          enumerable: true,
+          configurable: true
+        },
+        // specify more members for your prototype.
+        // ...
+      }),
+      extends: &#39;p&#39;
+    });</code></pre>
+</section>
+<section id="soo-much-stuff..." class="level2">
+<h2>Soo much stuff...</h2>
+<figure>
+<img src="img/mind-blown.gif" />
+</figure>
+</section>
+<section id="polymer" class="level2">
+<h2>Polymer</h2>
+<ul>
+<li>Polyfill (shim) for web components</li>
+<li>Focused on compatibility, not on speed</li>
+<li>actually a bunch of</li>
+</ul>
+</section>
+<section id="installing-some-components" class="level2">
+<h2>Installing some components</h2>
+<ul>
+<li><p>Installing polymer:</p>
+<pre><code>bower install --save Polymer/polymer</code></pre></li>
+<li><p>Installing core components:</p>
+<pre><code>bower install --save Polymer/core-elements</code></pre></li>
+<li><p>Installing other components:</p>
+<pre><code>bower install --save Polymer/polymer-elements
+bower install --save Polymer/polymer-ui-elements</code></pre></li>
+<li><p>Installing specific component</p>
+<pre><code>bower install Polymer/polymer-ui-accordion</code></pre></li>
+</ul>
+</section>
+<section id="component-wise-approach" class="level2">
+<h2>Component-wise approach</h2>
+<pre><code>    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;!-- 1. Load platform.js for polyfill support. --&gt;
+        &lt;script src=&quot;bower_components/platform/platform.js&quot;&gt;&lt;/script&gt;
+
+        &lt;!-- 2. Use an HTML Import to bring in the element. --&gt;
+        &lt;link rel=&quot;import&quot; href=&quot;bower_components/core-ajax/core-ajax.html&quot;&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;!-- 3. Declare the element. Configure using its attributes. --&gt;
+        &lt;core-ajax url=&quot;http://example.com/json&quot; handleAs=&quot;json&quot;&gt;&lt;/core-ajax&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<ul>
+<li>core-ajax... wait, what?</li>
+</ul>
+</section>
+<section id="component-wise-approach-1" class="level2">
+<h2>Component-wise approach</h2>
+<pre><code>    // Wait for &#39;polymer-ready&#39;. Ensures the element is upgraded.
+    window.addEventListener(&#39;polymer-ready&#39;, function(e) {
+      var ajax = document.querySelector(&#39;core-ajax&#39;);
+
+      // Respond to events it fires.
+      ajax.addEventListener(&#39;core-response&#39;, function(e) {
+        console.log(this.response);
+      });
+
+      ajax.go(); // Call its API methods.
+    });</code></pre>
+</section>
+<section id="building-components" class="level2">
+<h2>Building components</h2>
+<p>create elements/my-element.html</p>
+<pre><code>    &lt;link rel=&quot;import&quot; href=&quot;../bower_components/polymer/polymer.html&quot;&gt;
+    &lt;link rel=&quot;import&quot; href=&quot;../bower_components/core-ajax/core-ajax.html&quot;&gt;
+
+    &lt;polymer-element name=&quot;my-element&quot; noscript&gt;
+      &lt;template&gt;
+        &lt;span&gt;I&#39;m &lt;b&gt;my-element&lt;/b&gt;. This is my Shadow DOM.&lt;/span&gt;
+        &lt;core-ajax url=&quot;http://example.com/json&quot; auto response=&quot;{{resp}}&quot;&gt;&lt;/core-ajax&gt;
+        &lt;textarea value=&quot;{{resp}}&quot;&gt;&lt;/textarea&gt;
+      &lt;/template&gt;
+    &lt;/polymer-element&gt;</code></pre>
+<p>That's it!</p>
+</section>
+<section id="using-built-components" class="level2">
+<h2>Using built components</h2>
+<pre><code>    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;!-- 1. Load platform support before any code that touches the DOM. --&gt;
+        &lt;script src=&quot;bower_components/platform/platform.js&quot;&gt;&lt;/script&gt;
+        &lt;!-- 2. Load the component using an HTML Import --&gt;
+        &lt;link rel=&quot;import&quot; href=&quot;elements/my-element.html&quot;&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;!-- 3. Declare the element by its tag. --&gt;
+        &lt;my-element&gt;&lt;/my-element&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+</section>
+<section id="extending-component-prototype" class="level2">
+<h2>Extending component prototype</h2>
+<pre><code>    &lt;polymer-element name=&quot;ready-element&quot;&gt;
+      &lt;template&gt;
+        This element has a ready() method.
+        &lt;span id=&quot;el&quot;&gt;Not ready...&lt;/span&gt;
+      &lt;/template&gt;
+      &lt;script&gt;
+        Polymer(&#39;ready-element&#39;, {
+          owner: &quot;Goofy&quot;,
+          ready: function() {
+            this.$.el.textContent = this.owner +
+                                    &quot; is ready!&quot;;
+          }
+        });
+      &lt;/script&gt;
+    &lt;/polymer-element&gt;</code></pre>
+</section>
+<section id="polymer-templates" class="level2">
+<h2>Polymer templates</h2>
+<ul>
+<li>Polymer supports two-way bindings</li>
+<li><p>So in this example:</p>
+<pre><code>&lt;input id=&quot;nameInput&quot; value=&quot;{{name}}&quot;&gt;</code></pre></li>
+<li>... any change in the input will change the this.name value</li>
+<li><p>also declarative event handlers are possible:</p>
+<pre><code>&lt;polymer-element name=&quot;x-button&quot;&gt;
+  &lt;template&gt;
+    &lt;button on-click=&quot;{{buttonClick}}&quot;&gt;&lt;/button&gt;
+  &lt;/template&gt;
+  &lt;script&gt;
+    Polymer(&#39;x-button&#39;, {
+      buttonClick: function(event, detail, sender) { ... }
+    });
+  &lt;/script&gt;
+&lt;/polymer-element&gt;</code></pre></li>
+</ul>
+</section>
+<section id="polymer-prototype-elements" class="level2">
+<h2>Polymer prototype elements</h2>
+<ul>
+<li>callbacks: created, ready</li>
+<li>useful methods: fire</li>
+<li><p>somethingChanged watchers</p>
+<pre><code>...
+nameChanged: function() {
+  if (this.name) {
+    // Insure name is capitalized
+    this.name = this.name[0].toUpperCase() +
+                this.name.slice(1);
+  }
+},
+...</code></pre></li>
+<li><p>also possible to watch multiple properties by one callback (observe)</p>
+<pre><code>...
+observe: {
+  foo: &#39;validate&#39;,
+  bar: &#39;validate&#39;,
+  &#39;a.b.c&#39;: &#39;validate&#39;
+},
+...</code></pre></li>
+</ul>
+</section>
+<section id="polymer-prototype-elements-1" class="level2">
+<h2>Polymer prototype elements</h2>
+<ul>
+<li><p>Following node in template section:</p>
+<pre><code>&lt;input type=&quot;text&quot; id=&quot;nameInput&quot;&gt;</code></pre></li>
+<li><p>maps to</p>
+<pre><code>this.$.nameInput.value</code></pre></li>
+</ul>
+</section>
+<section id="polymer-published-attributes" class="level2">
+<h2>Polymer published attributes</h2>
+<pre><code>      ...
+      publish: {
+        foo: &#39;I am foo!&#39;,
+        bar: 5,
+        baz: {
+          value: false,
+          reflect: true
+        }
+      },
+      ...</code></pre>
+<ul>
+<li>reflect=true will imply the change of baz DOM attribute when this.baz is changed</li>
+<li>reflect=true will not work for a complex structure like array or object</li>
+</ul>
+</section>
+<section id="questions" class="level2">
+<h2>Questions</h2>
+</section>
+<section id="sauce" class="level2">
+<h2>Sauce</h2>
+<ul>
+<li><a href="http://www.w3.org/TR/components-intro/">www.w3.org/TR/components-intro/</a></li>
+<li><a href="http://w3c.github.io/webcomponents/">w3c.github.io/webcomponents/</a></li>
+<li><a href="http://css-tricks.com/modular-future-web-components/">css-tricks.com/modular-future-web-components/</a></li>
+<li><a href="http://webcomponents.org/">webcomponents.org</a></li>
+<li><a href="http://customelements.io/">customelements.io</a></li>
+<li><a href="http://www.polymer-project.org/">polymer-project.org</a></li>
+<li><a href="http://todomvc.com/architecture-examples/polymer/index.html">Polymer TodoMVC</a></li>
+<li><a href="https://www.youtube.com/watch?v=mN7IAaRdi_k">All About Polymer at SFHTML5</a></li>
+</ul>
+</section>
+            </div>
+
+        </div>
+
+        <script src="../../revealjs-common/lib/js/head.min.js"></script>
+        <script src="../../revealjs-common/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: '../../revealjs-common/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../revealjs-common/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../revealjs-common/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../revealjs-common/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../revealjs-common/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../revealjs-common/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
