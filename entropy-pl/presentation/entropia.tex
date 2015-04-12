@@ -1,0 +1,88 @@
+\documentclass{beamer}
+\usetheme{default}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
+
+\title{Entropia i jej zastosowania}
+\author{Andrzej Pragacz}
+
+\begin{document}
+
+\titlepage
+
+\section{Podstawowe pojęcia}
+
+\begin{frame}{Przestrzeń probabilistyczna (prawdopodobieństwo klasyczne)}
+Tzw. przestrzeń probabilistyczna składa się z:
+\begin{itemize}
+  \item Zbioru $\Omega$, będącego skończonym zbiorem zdarzeń elementarnych $\omega$
+  \item Funkcji prawdopodobieństwa $P: 2^\Omega \to [0, 1]$ zdefiniowanej:
+  $$
+  P(A) = \frac{|A|}{|\Omega|}
+  $$
+  o własnościach:
+  \begin{itemize}
+    \item $P(\emptyset) = 0$
+    \item $P(\Omega) = 1$
+    \item $P(A \cup B) = P(A) + P(B)$ jeśli $A \cap B = \emptyset$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Zmienna losowa (prawdopodobieństwo klasyczne)}
+\begin{itemize}
+  \item Zmienna losowa $X$ to funkcja typu $\Omega \to S$, gdzie $S$ jest
+  zbiorem elementów (najczęściej skończonym)
+  \item Przykłady:
+  \begin{itemize}
+    \item $X$ jako liczba wyrzuconych oczek. Wówczas: $$P(X=1) = P(X=2) = \ldots = P(X=6) = \frac{1}{6}$$
+    \item $X$ jako litera występująca z prawdopodobieństwem występowania
+    w losowym tekście. Przykładowo:
+    $$ P(X=E) = 0.1249, P(X=T) = 0.0928, P(X=A) = 0.0804 \ldots$$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Gra w 20 pytań}
+\begin{itemize}
+  \item niech będzie dane 8 liczb $1, 2, \ldots, 8$. Każdą z nich można wylosować
+  z jednakowym prawdopodobieństwem, co będzie reprezentowane
+  przez zmienną losową $X$. ile pytań średnio potrzeba żeby odgadnąć
+  wylosowaną liczbę?
+  \pause
+  \item średnio: 3 pytań
+  \item a co jeśli przyjmiemy że $P(X=1) = 1$ (pozostałe prawdopodobieństwa się zerują)?
+  \pause
+  \item 0 pytań!
+  \item a co jeśli:
+  $$
+  P(1) = \frac{1}{2}, P(2) = \frac{1}{2^2}, \ldots, P(7) = P(8) = \frac{1}{2^7}
+  $$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Kodowanie arytmetyczne}
+\end{frame}
+
+\begin{frame}{Budowanie drzew decyzyjnych}
+\end{frame}
+
+\begin{frame}{Entropia a mechanika statystyczna}
+\end{frame}
+
+\begin{frame}{Bibliografia}
+\begin{itemize}
+  \item \url{http://wazniak.mimuw.edu.pl/index.php?title=Teoria_informacji}
+  \item \url{http://norvig.com/mayzner.html}
+\end{itemize}
+\end{frame}
+
+
+\end{document}
