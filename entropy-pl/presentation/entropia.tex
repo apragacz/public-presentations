@@ -21,7 +21,9 @@
 \begin{frame}{Przestrzeń probabilistyczna (prawdopodobieństwo klasyczne)}
 Tzw. przestrzeń probabilistyczna składa się z:
 \begin{itemize}
-  \item Zbioru $\Omega$, będącego skończonym zbiorem zdarzeń elementarnych $\omega$
+  \item Zbioru $\Omega$, będącego skończonym zbiorem zdarzeń
+  elementarnych $\omega$. Każde ze zdarzeń $\omega$ może wystąpić z jednakowym
+  prawdopodobieństwem.
   \item Funkcji prawdopodobieństwa $P: 2^\Omega \to [0, 1]$ zdefiniowanej:
   $$
   P(A) = \frac{|A|}{|\Omega|}
@@ -49,22 +51,162 @@ Tzw. przestrzeń probabilistyczna składa się z:
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Niezależność (prawdopodobieństwo klasyczne)}
+\end{frame}
+
+\begin{frame}{Prawdopodobieństwo warunkowe}
+\end{frame}
+
+\section{Entropia}
+
 \begin{frame}{Gra w 20 pytań}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/akinator.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Gra w n pytań}
 \begin{itemize}
   \item niech będzie dane 8 liczb $1, 2, \ldots, 8$. Każdą z nich można wylosować
   z jednakowym prawdopodobieństwem, co będzie reprezentowane
-  przez zmienną losową $X$. ile pytań średnio potrzeba żeby odgadnąć
+  przez zmienną losową $X$. ile pytań (tak/nie) średnio potrzeba żeby odgadnąć
   wylosowaną liczbę?
   \pause
   \item średnio: 3 pytań
   \item a co jeśli przyjmiemy że $P(X=1) = 1$ (pozostałe prawdopodobieństwa się zerują)?
   \pause
   \item 0 pytań!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Gra w n pytań - drzewo decyzyjne}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{img/decision_tree1.png}
+\end{center}
+Ścieżka od korzenia do liścia = lista pytań = kod binarny
+\end{frame}
+
+
+\begin{frame}{Gra w n pytań c.d.}
+
+\begin{itemize}
   \item a co jeśli:
   $$
   P(1) = \frac{1}{2}, P(2) = \frac{1}{2^2}, \ldots, P(7) = P(8) = \frac{1}{2^7}
   $$
+  \pause
+  \item Przykładowe rozwiązanie:
+  \begin{itemize}
+    \item Pytamy czy $X=1$.
+    \item Jeśli nie, to pytamy czy $X=2$.
+    \item $\ldots$
+    \item Jeśli nie, to pytamy czy $X=7$.
+    \item Jeśli nie, to $X=8$.
+  \end{itemize}
+  \item Średnia liczba pytań:
+  $$\frac{1}{2} + 2 \frac{1}{2^2} + 3 \frac{1}{2^3} + \ldots + 6 \frac{1}{2^6} +2 \cdot 7 \frac{1}{2^7} = 1.984375$$
+  \item A co jeśli mamy ogólny rozkład? jaka jest dolna granica średniej liczby pytań?
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Entropia}
+Niech $X$ będzie zmienną losową w zbiór $S = \{s_1, s_2, \ldots, s_n\}$
+oraz $P(X=s_i) = p_i$. \textbf{Entropia} $X$ to:
+$$
+H_r(X) = \sum_{i=1}^{n} p_i \log_{r}{\frac{1}{p_i}} = - \sum_{i=1}^{n} p_i \log_{r}{p_i}
+$$
+
+Czasem $H_r(X)$ nazywa się również zawartością informacyjną bądź miarą niepewności.
+\end{frame}
+
+\begin{frame}{Entropia jako dolne ograniczenie}
+
+Niech $l(s_i)$ będzie liczbą pytań (tak/nie) potrzebną żeby odgadnąć
+dane $s_i \in S$ przy zadanej strategii $l$. Wówczas dla każdej
+strategii $l$:
+
+$$
+H_2(X) \leq \sum_{i=1}^{n} p_i l(s_i)
+$$
+
+\end{frame}
+
+
+\begin{frame}{Interludium}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{img/cleese-at-ocean-desk.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}{Nierówność Jensena}
+Funkcję $f$ spełniającą nierówność:
+$$
+f\left(\frac{x + y}{2}\right) \leq \frac{f(x) + f(y)}{2}
+$$
+nazywamy funkcją \textbf{wypukłą}. Alternatywna definicja to $f'' \geq 0$.
+\newline
+
+Dla takich funkcji zachodzi \textbf{nierówność Jensena};
+niech $\sum_{i=1}^{n} a_i = 1$, $a_i > 0$, wówczas:
+$$
+f\left(\sum_{i=1}^{n} a_i x_i\right) \leq \sum_{i=1}^{n} a_i f(x_i)
+$$
+(dowód przez indukcję)
+\end{frame}
+
+\begin{frame}{Złoty lemat}
+Niech $\sum_{i=1}^{n} p_i = 1$, $p_i > 0$ oraz $\sum_{i=1}^{n} q_i \leq 1$, $q_i > 0$. Wówczas:
+
+$$
+\sum_{i=1}^{n} p_i \log{\frac{1}{p_i}} \leq \sum_{i=1}^{n} p_i \log{\frac{1}{q_i}}
+$$
+
+Dowód: oznaczając $f(x) = x \log{x}$ jako funkcję wypukłą korzystamy
+z nierówności Jensena:
+
+$$
+P - L = \sum_{i=1}^{n} p_i \log{\frac{p_i}{q_i}}
+= \sum_{i=1}^{n} q_i \left(\frac{p_i}{q_i}\right) \log{\frac{p_i}{q_i}}
+$$
+$$
+\geq \left( \sum_{i=1}^n q_i \cdot \frac{p_i}{q_i} \right) \log{\left( \sum_{i=1}^n q_i \cdot \frac{p_i}{q_i} \right)}
+= 0
+$$
+
+\end{frame}
+
+
+\begin{frame}{Entropia jako dolne ograniczenie - dowód}
+
+Dla dowolnej strategii zadawania pytań $l$ podstawiamy
+$q_i = \frac{1}{2^{l(s_i)}}$ do złotego lematu i uzyskujemy nierówność
+
+$$
+H_2(X) \leq \sum_{i=1}^{n} p_i l(s_i)
+$$
+
+Warunek:
+
+$$
+\sum_{i=1}^n q_i = \sum_{i=1}^n \frac{1}{2^{l(s_i)}} \leq 1
+$$
+zachodzi i nazywa się \textbf{nierównością Krafta}.
+\end{frame}
+
+\section{Zastosowania}
+
+\begin{frame}{Smutny fakt z kryptografii}
+Niech $M$ będzie wiadomością, $K$ kluczem a $C$ wynikowym kryptogramem. Inaczej mówiąc:
+$$
+C = Enc(M, K), M = Dec(C, K)
+$$
+wówczas:
+$$
+H_2(K) \geq H_2(M)
+$$
+Inaczej mówiąc, klucz musi być conajmniej takiej długości co wiadomość.
 \end{frame}
 
 
