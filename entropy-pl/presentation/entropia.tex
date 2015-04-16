@@ -51,10 +51,18 @@ Tzw. przestrzeń probabilistyczna składa się z:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Niezależność (prawdopodobieństwo klasyczne)}
-\end{frame}
-
-\begin{frame}{Prawdopodobieństwo warunkowe}
+\begin{frame}{Niezależność i prawdopodobieństwo warunkowe}
+\begin{itemize}
+  \item Zdarzenia $A$ i $B$ są niezależne, jeśli $P(A \cap B) = P(A) P(B)$
+  \item Zmienne losowe $X_1$ i $Y_1$ są niezależne, jeśli dla każdych
+  $T_1 \subseteq S_1$, $T_2 \subseteq S_2$ zachodzi:
+  $P(X_1 \in T_1, X_2 \in T_2) = P(X_1 \in T_1) P(X_2 \in T_2)$
+  \item Prawdopodobieństwo warunkowe względem zdarzenia $B$
+  (przy założeniu, że $P(B) > 0$) definiujemy jako:
+  $$
+  P(A|B) = \frac{P(A \cap B)}{P(B)}
+  $$
+\end{itemize}
 \end{frame}
 
 \section{Entropia}
@@ -119,9 +127,29 @@ H_r(X) = \sum_{i=1}^{n} p_i \log_{r}{\frac{1}{p_i}} = - \sum_{i=1}^{n} p_i \log_
 $$
 
 Czasem $H_r(X)$ nazywa się również zawartością informacyjną bądź miarą niepewności.
+
+Przyjmujemy, że $0 \log_r{0} = 0 \log_r{\frac{1}{0}} = 0$.
+
 \end{frame}
 
-\begin{frame}{Entropia jako dolne ograniczenie}
+
+\begin{frame}{Entropia c.d.}
+
+Ograniczenie dolne i górne:
+\begin{itemize}
+  \item jeśli dla pewnego $p_i$ zachodzi $p_i = 1$ to $H_r(X) = 0$ (wartość minimalna)
+  \item jeśli $p_1 = p_2 = \ldots = p_n$ to $H_r(X) = \log_r{n}$ (wartość maksymalna)
+\end{itemize}
+
+\end{frame}
+
+
+\section{Zastosowania}
+
+\subsection{Entropia jako dolne ograniczenie na liczbę pytań}
+
+
+\begin{frame}{Entropia jako dolne ograniczenie na liczbę pytań}
 
 Niech $l(s_i)$ będzie liczbą pytań (tak/nie) potrzebną żeby odgadnąć
 dane $s_i \in S$ przy zadanej strategii $l$. Wówczas dla każdej
@@ -195,14 +223,16 @@ $$
 zachodzi i nazywa się \textbf{nierównością Krafta}.
 \end{frame}
 
-\section{Zastosowania}
+
+\subsection{Kryptografia}
 
 \begin{frame}{Smutny fakt z kryptografii}
 Niech $M$ będzie wiadomością, $K$ kluczem a $C$ wynikowym kryptogramem. Inaczej mówiąc:
 $$
 C = Enc(M, K), M = Dec(C, K)
 $$
-wówczas:
+Jeśli potraktujemy $C, K, M$ jako zmienne losowe, to jeśli $C$ i $M$ są niezależne
+to kryptosystem jest \textbf{idealnie bezpieczny}. Wówczas:
 $$
 H_2(K) \geq H_2(M)
 $$
@@ -210,18 +240,39 @@ Inaczej mówiąc, klucz musi być conajmniej takiej długości co wiadomość.
 \end{frame}
 
 
-\begin{frame}{Kodowanie arytmetyczne}
-\end{frame}
+\subsection{Drzewa decyzyjne}
 
 \begin{frame}{Budowanie drzew decyzyjnych}
 \end{frame}
 
-\begin{frame}{Entropia a mechanika statystyczna}
+
+\subsection{Mechanika statystyczna i termodynamika}
+
+\begin{frame}{Entropia a mechanika statystyczna i termodynamika}
+
+System $X$ składa się z $W$ mikrostanów $x_i$ (konfiguracji położenie/pęd cząsteczek), gdzie stan
+$x_i$ występuje z prawdopodobieństwem $p_i$. Entropię takiego systemu definiujemy
+następująco:
+
+$$
+S = - k_B \sum_{i=1}^{W} p_i \ln{p_i}
+$$
+
+gdzie $k_B = 1.38065 \cdot 10^{-23} J/K$.
+W praktyce często rozpatrujemy mikrostany o tych samych energiach i które mają
+to samo prawdopodobieństwo występowania, więc wzór upraszcza sie do:
+
+$$
+S = k_B \ln{W}
+$$
+
 \end{frame}
 
 \begin{frame}{Bibliografia}
 \begin{itemize}
+  \item Wstęp do teorii prawdopodobieństwa, J.Jakubowski, R. Sztencel
   \item \url{http://wazniak.mimuw.edu.pl/index.php?title=Teoria_informacji}
+  \item \url{https://www.khanacademy.org/science/physics/thermodynamics}
   \item \url{http://norvig.com/mayzner.html}
 \end{itemize}
 \end{frame}
